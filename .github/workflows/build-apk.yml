@@ -33,7 +33,7 @@ jobs:
         run: sed -i 's/firebase-bom:33.7.0/firebase-bom:35.2.0/' app/build.gradle
       - name: Raise Android minimum SDK for Firebase Auth
         working-directory: APP_LEO_Android_v0_2
-        run: sed -i -E 's/minSdk([[:space:]]+)23/minSdk\\124/g; s/minSdkVersion([[:space:]]+)23/minSdkVersion\\124/g' app/build.gradle
+        run: sed -i 's/minSdk 23/minSdk 24/; s/minSdkVersion 23/minSdkVersion 24/' app/build.gradle
       - name: Build debug APK
         working-directory: APP_LEO_Android_v0_2
         run: gradle --no-daemon assembleDebug

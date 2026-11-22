@@ -37,6 +37,22 @@ jobs:
       - name: Enable BuildConfig generation
         working-directory: APP_LEO_Android_v0_2
         run: sed -i '/^android[[:space:]]*{/a\\    buildFeatures { buildConfig true }' app/build.gradle
+      - name: Bypass login for test build
+        working-directory: APP_LEO_Android_v0_2
+        run: |
+          cat > app/src/main/java/com/leo/manutencao/LoginActivity.java <<'JAVA'
+          package com.leo.manutencao;
+          import android.app.Activity;
+          import android.content.Intent;
+          import android.os.Bundle;
+          public class LoginActivity extends Activity {
+              @Override protected void onCreate(Bundle savedInstanceState) {
+                  super.onCreate(savedInstanceState);
+                  startActivity(new Intent(this, MainActivity.class));
+                  finish();
+              }
+          }
+          JAVA
       - name: Build debug APK
         working-directory: APP_LEO_Android_v0_2
         run: gradle --no-daemon assembleDebug
